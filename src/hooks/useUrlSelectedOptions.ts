@@ -5,7 +5,6 @@ import {
   decompressOptions,
   type OptionMap,
   type SelectedOptions,
-  CompressionOptions
 } from 'compress-param-options';
 
 interface UseUrlSelectedOptionsResult {
@@ -43,34 +42,35 @@ export const useUrlSelectedOptions = (
     }
 
     // Update URL parameters
-    const newParams = new URLSearchParams(searchParams);
-
-    if (newSelected.size === 0) {
-      // Remove the parameter if no options are selected
-      newParams.delete(paramName);
-    } else {
-      // Compress the new selection and update the URL
-      try {
-        const compressed = compressOptions(optionMap, newSelected, CompressionOptions.default());
-        newParams.set(paramName, compressed);
-      } catch {
-        // If compression fails, remove the parameter
-        newParams.delete(paramName);
+    setSearchParams((prevParams) => {
+      if (newSelected.size === 0) {
+        // Remove the parameter if no options are selected
+        prevParams.delete(paramName);
+      } else {
+        // Compress the new selection and update the URL
+        try {
+          const compressed = compressOptions(optionMap, newSelected);
+          prevParams.set(paramName, compressed);
+        } catch {
+          // If compression fails, remove the parameter
+          prevParams.delete(paramName);
+        }
       }
-    }
-
-    setSearchParams(newParams, { replace: true });
-  }, [selectedOptions, searchParams, setSearchParams, paramName, optionMap]);
+      return prevParams;
+    }, { replace: true });
+  }, [selectedOptions, setSearchParams, paramName, optionMap]);
 
   // Clean up invalid URL parameters on mount
   useEffect(() => {
     if (compressedParam && selectedOptions.size === 0) {
+      console.log('cleaning');
       // If we have a compressed param but no valid selected options, clean it up
-      const newParams = new URLSearchParams(searchParams);
-      newParams.delete(paramName);
-      setSearchParams(newParams, { replace: true });
+      setSearchParams((prevParams) => {
+        prevParams.delete(paramName);
+        return prevParams;
+      }, { replace: true });
     }
-  }, [compressedParam, selectedOptions.size, searchParams, setSearchParams, paramName]);
+  }, [compressedParam, selectedOptions.size, setSearchParams, paramName]);
 
   return {
     selectedOptions,
