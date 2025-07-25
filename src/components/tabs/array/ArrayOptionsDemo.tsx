@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import {
-  Grid,
+  Container,
   Typography,
   Alert,
   Box
@@ -31,52 +31,42 @@ const ArrayOptionsDemo: React.FC = () => {
   }, [selectedOptions]);
 
   return (
-    <Grid container spacing={3}>
-      <Grid size={{ xs: 12 }}>
-        <Typography variant="h5" gutterBottom>
-          Array Options Demo
-        </Typography>
-        <Typography variant="body2" color="text.secondary" paragraph>
-          This demo uses an ArrayOptionMap where options are stored in a simple array.
-          The array index serves as the key for compression. Note that changing array order affects compression results.
-        </Typography>
-      </Grid>
+    <Container maxWidth="xl">
+      <Typography variant="h5" gutterBottom>
+        Array Options Demo
+      </Typography>
+      <Typography variant="body2" color="text.secondary" paragraph>
+        This demo uses an ArrayOptionMap where options are stored in a simple array.
+        The array index serves as the key for compression. Note that changing array order affects compression results.
+      </Typography>
 
-      <Grid size={{ xs: 12, md: 4 }}>
-        <ArrayMapFilters
-          optionMap={arrayOptionMap}
-          selectedOptions={selectedOptions}
-          onOptionChange={handleOptionChange}
+      <ArrayMapFilters
+        optionMap={arrayOptionMap}
+        selectedOptions={selectedOptions}
+        onOptionChange={handleOptionChange}
+      />
+
+      <Box>
+        <CompressionResults
+          compressedOptions={compressedString}
+          decompressedOptions={selectedOptions}
         />
-      </Grid>
 
-      <Grid size={{ xs: 12, md: 8 }}>
-        <Box>
-          <CompressionResults
-            selectedOptions={selectedOptions}
-            compressedOptions={compressedString}
-            decompressedOptions={selectedOptions}
-            formatOptionLabel={(option) => `[${arrayOptionMap.indexOf(option)}] ${option}`}
-          />
+        <Alert severity="warning" sx={{ mt: 2 }}>
+          <Typography variant="body2">
+            <strong>Array Order Warning:</strong> With ArrayOptionMap, changing the order of items in the array
+            will affect compression results. Use StringOptionMap or NumberOptionMap for stable compression
+            when array order might change.
+          </Typography>
+        </Alert>
+      </Box>
 
-          <Alert severity="warning" sx={{ mt: 2 }}>
-            <Typography variant="body2">
-              <strong>Array Order Warning:</strong> With ArrayOptionMap, changing the order of items in the array
-              will affect compression results. Use StringOptionMap or NumberOptionMap for stable compression
-              when array order might change.
-            </Typography>
-          </Alert>
-        </Box>
-      </Grid>
-
-      <Grid size={{ xs: 12 }}>
-        <FilteredDataGrid
-          data={filteredData}
-          columns={columns}
-          title="Filtered Data"
-        />
-      </Grid>
-    </Grid>
+      <FilteredDataGrid
+        data={filteredData}
+        columns={columns}
+        title="Filtered Data"
+      />
+    </Container>
   );
 };
 

@@ -1,11 +1,6 @@
 import React from 'react';
-import {
-  Typography,
-  FormGroup,
-  Card,
-  CardContent,
-} from '@mui/material';
 import { type ArrayOptionMap, type SelectedOptions } from 'compress-param-options';
+import FilterCategory from './FilterCategory';
 import FilterSection from './FilterSection';
 
 interface ArrayMapFiltersProps {
@@ -28,14 +23,15 @@ const ArrayMapFilters: React.FC<ArrayMapFiltersProps> = ({
     const groups: Record<string, Array<{ key: string; value: string; label: string }>> = {};
 
     optionMap.forEach((value, index) => {
-      const prefix = value.split('-')[0];
+      const split = value.split('-');
+      const prefix = split[0];
       if (!groups[prefix]) {
         groups[prefix] = [];
       }
       groups[prefix].push({
         key: index.toString(),
         value,
-        label: `[${index}] ${value}`
+        label: split[1],
       });
     });
 
@@ -43,24 +39,17 @@ const ArrayMapFilters: React.FC<ArrayMapFiltersProps> = ({
   }, [optionMap]);
 
   return (
-    <Card>
-      <CardContent>
-        <Typography variant="h6" gutterBottom>
-          Filter Options
-        </Typography>
-        <FormGroup>
-          {Object.entries(groupedOptions).map(([prefix, options]) => (
-            <FilterSection
-              key={prefix}
-              title={formatGroupTitle(prefix)}
-              options={options}
-              selectedOptions={selectedOptions}
-              onOptionChange={onOptionChange}
-            />
-          ))}
-        </FormGroup>
-      </CardContent>
-    </Card>
+    <FilterSection>
+      {Object.entries(groupedOptions).map(([prefix, options]) => (
+        <FilterCategory
+          key={prefix}
+          title={formatGroupTitle(prefix)}
+          options={options}
+          selectedOptions={selectedOptions}
+          onOptionChange={onOptionChange}
+        />
+      ))}
+    </FilterSection>
   );
 };
 

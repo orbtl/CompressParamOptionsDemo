@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import {
-  Grid,
+  Container,
   Typography,
 } from '@mui/material';
 
@@ -26,46 +26,33 @@ const NumberOptionsDemo: React.FC = () => {
   }, [selectedOptions]);
 
   return (
-    <Grid container spacing={3}>
-      <Grid size={{ xs: 12 }}>
-        <Typography variant="h5" gutterBottom>
-          Number Keys Demo
-        </Typography>
-        <Typography variant="body2" color="text.secondary" paragraph>
-          This demo uses a NumberOptionMap where numeric keys map to descriptive option values.
-          Number keys provide consistent mapping regardless of insertion order.
-        </Typography>
-      </Grid>
+    <Container maxWidth="xl">
+      <Typography variant="h5" gutterBottom>
+        Number Keys Demo
+      </Typography>
+      <Typography variant="body2" color="text.secondary" paragraph>
+        This demo uses a NumberOptionMap where numeric keys map to descriptive option values.
+        Number keys provide consistent mapping regardless of insertion order.
+      </Typography>
 
-      <Grid size={{ xs: 12, md: 4 }}>
-        <NumberMapFilters
-          optionMap={numberOptionMap}
-          selectedOptions={selectedOptions}
-          onOptionChange={handleOptionChange}
-        />
-      </Grid>
+      <NumberMapFilters
+        optionMap={numberOptionMap}
+        selectedOptions={selectedOptions}
+        onOptionChange={handleOptionChange}
+      />
 
-      <Grid size={{ xs: 12, md: 8 }}>
-        <CompressionResults
-          selectedOptions={selectedOptions}
-          compressedOptions={compressedString}
-          decompressedOptions={selectedOptions}
-          formatOptionLabel={(option) => {
-            // Find the key for this value in the numberOptionMap
-            const key = Object.keys(numberOptionMap).find(k => numberOptionMap[Number(k)] === option);
-            return key ? `${key} → ${option}` : option;
-          }}
-        />
-      </Grid>
+      <CompressionResults
+        compressedOptions={compressedString}
+        decompressedOptions={selectedOptions}
+      />
 
-      <Grid size={{ xs: 12 }}>
-        <FilteredDataGrid
-          data={filteredData}
-          columns={columns}
-          title="Filtered Data"
-        />
-      </Grid>
-    </Grid>
+      <FilteredDataGrid
+        data={filteredData}
+        columns={columns}
+        title="Filtered Data"
+      />
+
+    </Container>
   );
 };
 

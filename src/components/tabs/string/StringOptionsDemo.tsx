@@ -2,7 +2,6 @@ import React, { useMemo } from 'react';
 import {
   Container,
   Typography,
-  Stack
 } from '@mui/material';
 
 import { StringMapFilters } from '../../filters';
@@ -36,19 +35,16 @@ const StringOptionsDemo: React.FC = () => {
         Select filters to see compression in action and how it affects the data display.
       </Typography>
 
-      <Stack direction={{ xs: 'column', md: 'row' }} spacing={3} sx={{ mt: 3 }}>
-        <StringMapFilters
-          optionMap={stringOptionMap}
-          selectedOptions={selectedOptions}
-          onOptionChange={handleOptionChange}
-        />
+      <StringMapFilters
+        optionMap={stringOptionMap}
+        selectedOptions={selectedOptions}
+        onOptionChange={handleOptionChange}
+      />
 
-        <CompressionResults
-          selectedOptions={selectedOptions}
-          compressedOptions={compressedString}
-          decompressedOptions={selectedOptions}
-        />
-      </Stack>
+      <CompressionResults
+        compressedOptions={compressedString}
+        decompressedOptions={selectedOptions}
+      />
 
       <FilteredDataGrid
         data={filteredData}

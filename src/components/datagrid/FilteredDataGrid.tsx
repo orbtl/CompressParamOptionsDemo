@@ -19,7 +19,7 @@ const FilteredDataGrid: React.FC<FilteredDataGridProps> = ({
   title = 'Filtered Data'
 }) => {
   return (
-    <Card sx={{ mt: 3 }}>
+    <Card sx={{ mt: 2 }}>
       <CardContent>
         <Typography variant="h6" gutterBottom>
           {title} ({data.length} rows)
@@ -34,6 +34,7 @@ const FilteredDataGrid: React.FC<FilteredDataGridProps> = ({
               },
             }}
             pageSizeOptions={[5, 10, 25]}
+            sx={{}}
           />
         </Box>
       </CardContent>
