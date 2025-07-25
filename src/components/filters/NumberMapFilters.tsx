@@ -14,6 +14,10 @@ interface NumberMapFiltersProps {
   onOptionChange: (option: string, checked: boolean) => void;
 }
 
+const formatGroupTitle = (prefix: string) => {
+  return `${prefix.charAt(0).toUpperCase() + prefix.slice(1)} Options`;
+};
+
 const NumberMapFilters: React.FC<NumberMapFiltersProps> = ({
   optionMap,
   selectedOptions,
@@ -22,7 +26,7 @@ const NumberMapFilters: React.FC<NumberMapFiltersProps> = ({
   // Group options by prefix
   const groupedOptions = React.useMemo(() => {
     const groups: Record<string, Array<{ key: string; value: string; label: string }>> = {};
-    
+
     Object.entries(optionMap).forEach(([key, value]) => {
       const prefix = value.split('-')[0];
       if (!groups[prefix]) {
@@ -30,13 +34,9 @@ const NumberMapFilters: React.FC<NumberMapFiltersProps> = ({
       }
       groups[prefix].push({ key, value, label: `${key} → ${value}` });
     });
-    
+
     return groups;
   }, [optionMap]);
-
-  const formatGroupTitle = (prefix: string) => {
-    return `${prefix.charAt(0).toUpperCase() + prefix.slice(1)} Options`;
-  };
 
   return (
     <Card>

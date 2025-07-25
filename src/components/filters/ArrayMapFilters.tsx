@@ -14,6 +14,10 @@ interface ArrayMapFiltersProps {
   onOptionChange: (option: string, checked: boolean) => void;
 }
 
+const formatGroupTitle = (prefix: string) => {
+  return `${prefix.charAt(0).toUpperCase() + prefix.slice(1)} Options`;
+};
+
 const ArrayMapFilters: React.FC<ArrayMapFiltersProps> = ({
   optionMap,
   selectedOptions,
@@ -22,25 +26,21 @@ const ArrayMapFilters: React.FC<ArrayMapFiltersProps> = ({
   // Group options by prefix
   const groupedOptions = React.useMemo(() => {
     const groups: Record<string, Array<{ key: string; value: string; label: string }>> = {};
-    
+
     optionMap.forEach((value, index) => {
       const prefix = value.split('-')[0];
       if (!groups[prefix]) {
         groups[prefix] = [];
       }
-      groups[prefix].push({ 
-        key: index.toString(), 
-        value, 
-        label: `[${index}] ${value}` 
+      groups[prefix].push({
+        key: index.toString(),
+        value,
+        label: `[${index}] ${value}`
       });
     });
-    
+
     return groups;
   }, [optionMap]);
-
-  const formatGroupTitle = (prefix: string) => {
-    return `${prefix.charAt(0).toUpperCase() + prefix.slice(1)} Options`;
-  };
 
   return (
     <Card>

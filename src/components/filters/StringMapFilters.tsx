@@ -14,6 +14,10 @@ interface StringMapFiltersProps {
   onOptionChange: (option: string, checked: boolean) => void;
 }
 
+const formatGroupTitle = (prefix: string) => {
+  return `${prefix.charAt(0).toUpperCase() + prefix.slice(1)} Options`;
+};
+
 const StringMapFilters: React.FC<StringMapFiltersProps> = ({
   optionMap,
   selectedOptions,
@@ -22,7 +26,7 @@ const StringMapFilters: React.FC<StringMapFiltersProps> = ({
   // Group options by prefix
   const groupedOptions = React.useMemo(() => {
     const groups: Record<string, Array<{ key: string; value: string; label: string }>> = {};
-    
+
     Object.entries(optionMap).forEach(([key, value]) => {
       const prefix = value.split('-')[0];
       if (!groups[prefix]) {
@@ -30,13 +34,9 @@ const StringMapFilters: React.FC<StringMapFiltersProps> = ({
       }
       groups[prefix].push({ key, value, label: value });
     });
-    
+
     return groups;
   }, [optionMap]);
-
-  const formatGroupTitle = (prefix: string) => {
-    return `${prefix.charAt(0).toUpperCase() + prefix.slice(1)} Options`;
-  };
 
   return (
     <Card sx={{ minWidth: 300 }}>

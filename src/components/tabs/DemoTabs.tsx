@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useCallback } from 'react';
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import {
   Tabs,
   Tab,
@@ -10,45 +11,32 @@ import StringOptionsDemo from './string/StringOptionsDemo';
 import NumberOptionsDemo from './number/NumberOptionsDemo';
 import ArrayOptionsDemo from './array/ArrayOptionsDemo';
 
-interface TabPanelProps {
-  children?: React.ReactNode;
-  index: number;
-  value: number;
-}
+const tabRoutes = [
+  { path: '/', label: 'String Keys', component: StringOptionsDemo },
+  { path: '/number', label: 'Number Keys', component: NumberOptionsDemo },
+  { path: '/array', label: 'Array Options', component: ArrayOptionsDemo },
+];
 
-function TabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`demo-tabpanel-${index}`}
-      aria-labelledby={`demo-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          {children}
-        </Box>
-      )}
-    </div>
-  );
-}
-
-function a11yProps(index: number) {
-  return {
-    id: `demo-tab-${index}`,
-    'aria-controls': `demo-tabpanel-${index}`,
-  };
-}
+const tabLookup = tabRoutes.reduce((acc: Record<string, number>, route, index) => {
+  acc[route.path] = index;
+  return acc;
+}, {});
 
 const DemoTabs: React.FC = () => {
-  const [tabValue, setTabValue] = useState(0);
+  const location = useLocation();
+  const navigate = useNavigate();
 
-  const handleTabChange = (_event: React.SyntheticEvent, newValue: number) => {
-    setTabValue(newValue);
-  };
+  // Determine current tab based on pathname
+  const currentTab = location.pathname in tabLookup
+    ? tabLookup[location.pathname]
+    : 0;
+
+  const handleTabChange = useCallback((_event: React.SyntheticEvent, newValue: number) => {
+    const route = tabRoutes[newValue];
+    if (route) {
+      navigate(route.path);
+    }
+  }, [navigate]);
 
   return (
     <>
@@ -59,23 +47,31 @@ const DemoTabs: React.FC = () => {
         Explore how different data structure types can be compressed for URL parameters
       </Typography>
 
-      <Box sx={{ borderBottom: 1, borderColor: 'divider', mt: 2 }}>
-        <Tabs value={tabValue} onChange={handleTabChange} aria-label="demo tabs" centered>
-          <Tab label="String Keys" {...a11yProps(0)} />
-          <Tab label="Number Keys" {...a11yProps(1)} />
-          <Tab label="Array Options" {...a11yProps(2)} />
+      <Box sx={{ borderBottom: 1, borderColor: 'divider', mt: 3 }}>
+        <Tabs
+          value={currentTab}
+          onChange={handleTabChange}
+          aria-label="demo tabs"
+          centered
+        >
+          {tabRoutes.map((route, index) => (
+            <Tab
+              key={route.path}
+              label={route.label}
+              id={`demo-tab-${index}`}
+              aria-controls={`demo-tabpanel-${index}`}
+            />
+          ))}
         </Tabs>
       </Box>
 
-      <TabPanel value={tabValue} index={0}>
-        <StringOptionsDemo />
-      </TabPanel>
-      <TabPanel value={tabValue} index={1}>
-        <NumberOptionsDemo />
-      </TabPanel>
-      <TabPanel value={tabValue} index={2}>
-        <ArrayOptionsDemo />
-      </TabPanel>
+      <Box sx={{ p: 3 }}>
+        <Routes>
+          <Route path="/" element={<StringOptionsDemo />} />
+          <Route path="/number" element={<NumberOptionsDemo />} />
+          <Route path="/array" element={<ArrayOptionsDemo />} />
+        </Routes>
+      </Box>
     </>
   );
 };

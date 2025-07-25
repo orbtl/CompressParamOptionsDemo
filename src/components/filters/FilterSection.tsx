@@ -1,10 +1,10 @@
 import React from 'react';
 import {
   Typography,
-  Checkbox,
   FormControlLabel,
 } from '@mui/material';
 import { type SelectedOptions } from 'compress-param-options';
+import FilterCheckbox from './FilterCheckbox';
 
 interface FilterSectionProps {
   title: string;
@@ -28,9 +28,10 @@ const FilterSection: React.FC<FilterSectionProps> = ({
         <FormControlLabel
           key={key}
           control={
-            <Checkbox
+            <FilterCheckbox
               checked={selectedOptions.has(value)}
-              onChange={(e) => onOptionChange(value, e.target.checked)}
+              onOptionChange={onOptionChange}
+              value={value}
             />
           }
           label={label}
