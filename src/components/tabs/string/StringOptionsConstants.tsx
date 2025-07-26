@@ -18,7 +18,7 @@ export const stringOptionMap: StringOptionMap = {
   'manual': 'mode-manual'
 };
 
-interface DataRow {
+export interface StringExampleDataRow {
   id: number;
   name: string;
   category: string;
@@ -29,7 +29,7 @@ interface DataRow {
   mode: string;
 }
 
-const generateFakeData = (): DataRow[] => {
+const generateFakeData = (): StringExampleDataRow[] => {
   const names = ['Alpha', 'Beta', 'Gamma', 'Delta', 'Epsilon', 'Zeta', 'Eta', 'Theta'];
   const categories = ['Electronics', 'Clothing', 'Food', 'Tools'];
   const sizes = ['size-large', 'size-medium', 'size-small'];

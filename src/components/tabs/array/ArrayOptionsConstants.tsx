@@ -32,7 +32,7 @@ export const arrayOptionMap: ArrayOptionMap = [
   'compliance-sox'
 ];
 
-interface DataRow {
+export interface ArrayExampleDataRow {
   id: number;
   name: string;
   features: string[];
@@ -43,7 +43,7 @@ interface DataRow {
   users: number;
 }
 
-const generateFakeData = (): DataRow[] => {
+const generateFakeData = (): ArrayExampleDataRow[] => {
   const names = ['Service A', 'Application B', 'Platform C', 'Tool D', 'System E'];
   const allFeatures = arrayOptionMap.filter(opt => opt.startsWith('feature-'));
   const allPlatforms = arrayOptionMap.filter(opt => opt.startsWith('platform-'));

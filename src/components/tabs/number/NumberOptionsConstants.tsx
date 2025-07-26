@@ -23,7 +23,7 @@ export const numberOptionMap: NumberOptionMap = {
   43: 'department-support'
 };
 
-interface DataRow {
+export interface NumberExampleDataRow {
   id: number;
   name: string;
   priority: string;
@@ -34,7 +34,7 @@ interface DataRow {
   score: number;
 }
 
-const generateFakeData = (): DataRow[] => {
+const generateFakeData = (): NumberExampleDataRow[] => {
   const names = ['Project Alpha', 'Task Beta', 'Initiative Gamma', 'Process Delta', 'System Epsilon'];
   const priorities = ['priority-high', 'priority-medium', 'priority-low'];
   const statuses = ['status-active', 'status-inactive', 'status-pending'];

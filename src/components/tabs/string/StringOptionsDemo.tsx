@@ -9,9 +9,10 @@ import CompressionResults from '../../common/CompressionResults';
 import FilteredDataGrid from '../../datagrid/FilteredDataGrid';
 import { useUrlSelectedOptions } from '../../../hooks/useUrlSelectedOptions';
 import { fakeData, stringOptionMap, columns } from './StringOptionsConstants';
+import ParamName from '../../common/ParamName';
 
 const StringOptionsDemo: React.FC = () => {
-  const { selectedOptions, handleOptionChange, compressedString } = useUrlSelectedOptions(stringOptionMap, 'f');
+  const { selectedOptions, handleOptionChange, compressedString } = useUrlSelectedOptions(stringOptionMap, ParamName);
 
   const filteredData = useMemo(() => {
     if (selectedOptions.size === 0) return fakeData;

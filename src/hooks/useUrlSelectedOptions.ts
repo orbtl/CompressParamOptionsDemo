@@ -1,4 +1,4 @@
-import { useMemo, useCallback, useEffect } from 'react';
+import { useMemo, useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import {
   compressOptions,
@@ -60,21 +60,9 @@ export const useUrlSelectedOptions = (
     }, { replace: true });
   }, [selectedOptions, setSearchParams, paramName, optionMap]);
 
-  // Clean up invalid URL parameters on mount
-  useEffect(() => {
-    if (compressedParam && selectedOptions.size === 0) {
-      console.log('cleaning');
-      // If we have a compressed param but no valid selected options, clean it up
-      setSearchParams((prevParams) => {
-        prevParams.delete(paramName);
-        return prevParams;
-      }, { replace: true });
-    }
-  }, [compressedParam, selectedOptions.size, setSearchParams, paramName]);
-
   return {
     selectedOptions,
     handleOptionChange,
-    compressedString: compressedParam || ''
+    compressedString: compressedParam
   };
 };

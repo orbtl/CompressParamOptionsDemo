@@ -1,15 +1,17 @@
 import React, { useCallback } from 'react';
-import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
+import { Routes, Route, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import {
   Tabs,
   Tab,
   Box,
   Typography,
+  Button,
 } from '@mui/material';
 
 import StringOptionsDemo from './string/StringOptionsDemo';
 import NumberOptionsDemo from './number/NumberOptionsDemo';
 import ArrayOptionsDemo from './array/ArrayOptionsDemo';
+import ParamName from '../common/ParamName';
 
 const tabRoutes = [
   { path: '/', label: 'String Keys', component: StringOptionsDemo },
@@ -25,6 +27,14 @@ const tabLookup = tabRoutes.reduce((acc: Record<string, number>, route, index) =
 const DemoTabs: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const setSearchParams = useSearchParams()[1];
+
+  const clearOptions = useCallback(() => {
+    setSearchParams((prevParams) => {
+      prevParams.delete(ParamName);
+      return prevParams;
+    });
+  }, [setSearchParams]);
 
   // Determine current tab based on pathname
   const currentTab = location.pathname in tabLookup
@@ -48,21 +58,31 @@ const DemoTabs: React.FC = () => {
       </Typography>
 
       <Box sx={{ borderBottom: 1, borderColor: 'divider', mt: 3 }}>
-        <Tabs
-          value={currentTab}
-          onChange={handleTabChange}
-          aria-label="demo tabs"
-          centered
-        >
-          {tabRoutes.map((route, index) => (
-            <Tab
-              key={route.path}
-              label={route.label}
-              id={`demo-tab-${index}`}
-              aria-controls={`demo-tabpanel-${index}`}
-            />
-          ))}
-        </Tabs>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <Tabs
+            value={currentTab}
+            onChange={handleTabChange}
+            aria-label="demo tabs"
+          >
+            {tabRoutes.map((route, index) => (
+              <Tab
+                key={route.path}
+                label={route.label}
+                id={`demo-tab-${index}`}
+                aria-controls={`demo-tabpanel-${index}`}
+              />
+            ))}
+          </Tabs>
+
+          <Button
+            variant="outlined"
+            color="secondary"
+            onClick={clearOptions}
+            sx={{ ml: 2 }}
+          >
+            Clear Filters
+          </Button>
+        </Box>
       </Box>
 
       <Box sx={{ p: 3 }}>
