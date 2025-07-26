@@ -25,18 +25,21 @@ const FilteredDataGrid: React.FC<FilteredDataGridProps> = ({
         <Typography variant="h6" gutterBottom>
           {title} ({data.length} rows)
         </Typography>
-        <Box sx={{ height: 400, width: '100%' }}>
-          <DataGrid
-            rows={data}
-            columns={columns}
-            initialState={{
-              pagination: {
-                paginationModel: { page: 0, pageSize: 10 },
-              },
-            }}
-            pageSizeOptions={[5, 10, 25]}
-            sx={{}}
-          />
+        {/* Workaround for bug with datagrid's horizontal resizing */}
+        <Box sx={{ flex: 1, position: 'relative', height: 400 }}>
+          <Box sx={{ position: 'absolute', inset: 0 }}>
+            <DataGrid
+              rows={data}
+              columns={columns}
+              initialState={{
+                pagination: {
+                  paginationModel: { page: 0, pageSize: 10 },
+                },
+              }}
+              pageSizeOptions={[5, 10, 25]}
+              sx={{}}
+            />
+          </Box>
         </Box>
       </CardContent>
     </Card>

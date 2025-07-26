@@ -21,7 +21,7 @@ const FilterCategory: React.FC<FilterCategoryProps> = ({
   onOptionChange,
 }) => {
   return (
-    <Grid size={{ xs: 12, md: 2 }}>
+    <Grid size={{ xs: 12, md: 2, sm: 3 }}>
       <Typography variant="subtitle2" sx={{ mt: 2, mb: 1 }}>
         {title}
       </Typography>
