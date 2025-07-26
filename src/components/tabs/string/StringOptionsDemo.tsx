@@ -5,11 +5,11 @@ import {
 } from '@mui/material';
 
 import { StringMapFilters } from '../../filters';
-import CompressionResults from '../../common/CompressionResults';
+import CompressionResults from '../../compressonResults/CompressionResults';
 import FilteredDataGrid from '../../datagrid/FilteredDataGrid';
 import { useUrlSelectedOptions } from '../../../hooks/useUrlSelectedOptions';
 import { fakeData, stringOptionMap, columns } from './StringOptionsConstants';
-import ParamName from '../../common/ParamName';
+import ParamName from '../../../global/ParamName';
 
 const StringOptionsDemo: React.FC = () => {
   const { selectedOptions, handleOptionChange, compressedString } = useUrlSelectedOptions(stringOptionMap, ParamName);

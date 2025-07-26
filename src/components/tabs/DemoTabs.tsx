@@ -11,7 +11,7 @@ import {
 import StringOptionsDemo from './string/StringOptionsDemo';
 import NumberOptionsDemo from './number/NumberOptionsDemo';
 import ArrayOptionsDemo from './array/ArrayOptionsDemo';
-import ParamName from '../common/ParamName';
+import ParamName from '../../global/ParamName';
 
 const tabRoutes = [
   { path: '/', label: 'String Keys', component: StringOptionsDemo },

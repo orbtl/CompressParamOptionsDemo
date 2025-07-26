@@ -7,11 +7,11 @@ import {
 } from '@mui/material';
 
 import { ArrayMapFilters } from '../../filters';
-import CompressionResults from '../../common/CompressionResults';
+import CompressionResults from '../../compressonResults/CompressionResults';
 import FilteredDataGrid from '../../datagrid/FilteredDataGrid';
 import { useUrlSelectedOptions } from '../../../hooks/useUrlSelectedOptions';
 import { columns, fakeData, arrayOptionMap } from './ArrayOptionsConstants';
-import ParamName from '../../common/ParamName';
+import ParamName from '../../../global/ParamName';
 
 const ArrayOptionsDemo: React.FC = () => {
   const { selectedOptions, handleOptionChange, compressedString } = useUrlSelectedOptions(arrayOptionMap, ParamName);
