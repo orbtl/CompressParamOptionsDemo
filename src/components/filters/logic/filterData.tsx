@@ -18,10 +18,10 @@ export function filterData(
 
   const filteredData: FilterableData[] = [];
 
-  for (let data of allData) {
+  for (const data of allData) {
     let dataPassesFilters = true;
-    for (let filterKey of Object.keys(enabledFilters)) {
-      let value = data[filterKey];
+    for (const filterKey of Object.keys(enabledFilters)) {
+      const value = data[filterKey];
       if (!passesFilter(value, enabledFilters[filterKey])) {
         // If even a single filter doesn't match, this data shouldn't be included
         // We can break and skip checking the rest

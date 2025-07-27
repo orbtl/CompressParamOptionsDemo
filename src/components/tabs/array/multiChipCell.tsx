@@ -6,6 +6,8 @@ import {
 import { type GridRenderCellParams, type GridTreeNodeWithRender } from '@mui/x-data-grid';
 
 interface MultiChipCellProps {
+  // Type taken directly from mui datagrid
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   dataGridParams: GridRenderCellParams<any, any, any, GridTreeNodeWithRender>;
   maxCount: number;
   replaceString: string;

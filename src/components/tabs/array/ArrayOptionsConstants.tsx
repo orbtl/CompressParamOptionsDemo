@@ -1,9 +1,4 @@
-import React from 'react';
-import {
-  Chip,
-  Box
-} from '@mui/material';
-import { type GridColDef, type GridRenderCellParams, type GridTreeNodeWithRender } from '@mui/x-data-grid';
+import { type GridColDef } from '@mui/x-data-grid';
 import {
   type ArrayOptionMap,
 } from 'compress-param-options';
