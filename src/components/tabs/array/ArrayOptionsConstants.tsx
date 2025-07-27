@@ -6,6 +6,7 @@ import { type GridColDef } from '@mui/x-data-grid';
 import {
   type ArrayOptionMap,
 } from 'compress-param-options';
+import type { FilterableData } from '../../filters/logic/filterable';
 
 export const arrayOptionMap: ArrayOptionMap = [
   'feature-authentication',
@@ -32,24 +33,24 @@ export const arrayOptionMap: ArrayOptionMap = [
   'compliance-sox'
 ];
 
-export interface ArrayExampleDataRow {
+export interface ArrayExampleDataRow extends FilterableData {
   id: number;
   name: string;
-  features: string[];
-  platforms: string[];
+  feature: string[];
+  platform: string[];
   tier: string;
-  integrations: string[];
+  integration: string[];
   compliance: string[];
   users: number;
 }
 
 const generateFakeData = (): ArrayExampleDataRow[] => {
   const names = ['Service A', 'Application B', 'Platform C', 'Tool D', 'System E'];
-  const allFeatures = arrayOptionMap.filter(opt => opt.startsWith('feature-'));
-  const allPlatforms = arrayOptionMap.filter(opt => opt.startsWith('platform-'));
-  const allTiers = arrayOptionMap.filter(opt => opt.startsWith('tier-'));
-  const allIntegrations = arrayOptionMap.filter(opt => opt.startsWith('integration-'));
-  const allCompliance = arrayOptionMap.filter(opt => opt.startsWith('compliance-'));
+  const allFeatures = arrayOptionMap.filter(opt => opt.startsWith('feature-')).map(opt => opt.substring(8));
+  const allPlatforms = arrayOptionMap.filter(opt => opt.startsWith('platform-')).map(opt => opt.substring(9));
+  const allTiers = arrayOptionMap.filter(opt => opt.startsWith('tier-')).map(opt => opt.substring(5));
+  const allIntegrations = arrayOptionMap.filter(opt => opt.startsWith('integration-')).map(opt => opt.substring(12));
+  const allCompliance = arrayOptionMap.filter(opt => opt.startsWith('compliance-')).map(opt => opt.substring(11));
 
   return Array.from({ length: 40 }, (_, index) => {
     const numFeatures = Math.floor(Math.random() * 4) + 1;
@@ -60,10 +61,10 @@ const generateFakeData = (): ArrayExampleDataRow[] => {
     return {
       id: index + 1,
       name: `${names[index % names.length]} ${Math.floor(index / names.length) + 1}`,
-      features: allFeatures.slice(0, numFeatures),
-      platforms: allPlatforms.slice(0, numPlatforms),
+      feature: allFeatures.slice(0, numFeatures),
+      platform: allPlatforms.slice(0, numPlatforms),
       tier: allTiers[index % allTiers.length],
-      integrations: allIntegrations.slice(0, numIntegrations),
+      integration: allIntegrations.slice(0, numIntegrations),
       compliance: allCompliance.slice(0, numCompliance),
       users: Math.floor(Math.random() * 1000) + 10
     };
@@ -75,7 +76,7 @@ export const columns: GridColDef[] = [
   { field: 'id', headerName: 'ID', width: 70 },
   { field: 'name', headerName: 'Name', width: 150 },
   {
-    field: 'features',
+    field: 'feature',
     headerName: 'Features',
     width: 200,
     renderCell: (params) => (
@@ -88,7 +89,7 @@ export const columns: GridColDef[] = [
     )
   },
   {
-    field: 'platforms',
+    field: 'platform',
     headerName: 'Platforms',
     width: 150,
     renderCell: (params) => (

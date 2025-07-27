@@ -1,5 +1,6 @@
 import { type GridColDef } from '@mui/x-data-grid';
 import { type StringOptionMap } from 'compress-param-options';
+import { type FilterableData } from '../../filters/logic/filterable';
 
 export const stringOptionMap: StringOptionMap = {
   'lg': 'size-large',
@@ -18,7 +19,7 @@ export const stringOptionMap: StringOptionMap = {
   'manual': 'mode-manual'
 };
 
-export interface StringExampleDataRow {
+export interface StringExampleDataRow extends FilterableData {
   id: number;
   name: string;
   category: string;
@@ -32,11 +33,11 @@ export interface StringExampleDataRow {
 const generateFakeData = (): StringExampleDataRow[] => {
   const names = ['Alpha', 'Beta', 'Gamma', 'Delta', 'Epsilon', 'Zeta', 'Eta', 'Theta'];
   const categories = ['Electronics', 'Clothing', 'Food', 'Tools'];
-  const sizes = ['size-large', 'size-medium', 'size-small'];
-  const temperatures = ['temperature-cold', 'temperature-warm', 'temperature-hot'];
-  const colors = ['color-red', 'color-blue', 'color-green', 'color-yellow'];
-  const speeds = ['speed-fast', 'speed-slow'];
-  const modes = ['mode-automatic', 'mode-manual'];
+  const sizes = ['large', 'medium', 'small'];
+  const temperatures = ['cold', 'warm', 'hot'];
+  const colors = ['red', 'blue', 'green', 'yellow'];
+  const speeds = ['fast', 'slow'];
+  const modes = ['automatic', 'manual'];
 
   return Array.from({ length: 50 }, (_, index) => ({
     id: index + 1,

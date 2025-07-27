@@ -1,5 +1,5 @@
-import { type ArrayExampleDataRow } from "../tabs/array/ArrayOptionsConstants";
-import { type StringExampleDataRow } from "../tabs/string/StringOptionsConstants";
-import { type NumberExampleDataRow } from "../tabs/number/NumberOptionsConstants";
+import { type ArrayExampleDataRow } from "../tabs/array/arrayOptionsConstants";
+import { type StringExampleDataRow } from "../tabs/string/stringOptionsConstants";
+import { type NumberExampleDataRow } from "../tabs/number/numberOptionsConstants";
 
 export type UniversalDataRow = ArrayExampleDataRow | StringExampleDataRow | NumberExampleDataRow;

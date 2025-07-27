@@ -2,6 +2,7 @@ import { type GridColDef } from '@mui/x-data-grid';
 import {
   type NumberOptionMap,
 } from 'compress-param-options';
+import type { FilterableData } from '../../filters/logic/filterable';
 
 export const numberOptionMap: NumberOptionMap = {
   1: 'priority-high',
@@ -23,7 +24,7 @@ export const numberOptionMap: NumberOptionMap = {
   43: 'department-support'
 };
 
-export interface NumberExampleDataRow {
+export interface NumberExampleDataRow extends FilterableData {
   id: number;
   name: string;
   priority: string;
@@ -36,11 +37,11 @@ export interface NumberExampleDataRow {
 
 const generateFakeData = (): NumberExampleDataRow[] => {
   const names = ['Project Alpha', 'Task Beta', 'Initiative Gamma', 'Process Delta', 'System Epsilon'];
-  const priorities = ['priority-high', 'priority-medium', 'priority-low'];
-  const statuses = ['status-active', 'status-inactive', 'status-pending'];
-  const types = ['type-urgent', 'type-standard', 'type-bulk'];
-  const regions = ['region-north', 'region-south', 'region-east', 'region-west'];
-  const departments = ['department-sales', 'department-marketing', 'department-engineering', 'department-support'];
+  const priorities = ['high', 'medium', 'low'];
+  const statuses = ['active', 'inactive', 'pending'];
+  const types = ['urgent', 'standard', 'bulk'];
+  const regions = ['north', 'south', 'east', 'west'];
+  const departments = ['sales', 'marketing', 'engineering', 'support'];
 
   return Array.from({ length: 60 }, (_, index) => ({
     id: index + 1,

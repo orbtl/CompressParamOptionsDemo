@@ -10,7 +10,7 @@ import {
   Toolbar
 } from '@mui/material';
 
-import DemoTabs from './components/tabs/DemoTabs';
+import DemoTabs from './components/tabs/demoTabs';
 
 const theme = createTheme({
   palette: {

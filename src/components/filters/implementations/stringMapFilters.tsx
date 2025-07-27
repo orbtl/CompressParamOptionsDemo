@@ -1,10 +1,10 @@
 import React from 'react';
-import { type NumberOptionMap, type SelectedOptions } from 'compress-param-options';
-import FilterCategory from './FilterCategory';
-import FilterSection from './FilterSection';
+import { type StringOptionMap, type SelectedOptions } from 'compress-param-options';
+import FilterCategory from '../components/filterCategory';
+import FilterSection from '../components/filterSection';
 
-interface NumberMapFiltersProps {
-  optionMap: NumberOptionMap;
+interface StringMapFiltersProps {
+  optionMap: StringOptionMap;
   selectedOptions: SelectedOptions;
   onOptionChange: (option: string, checked: boolean) => void;
 }
@@ -13,7 +13,7 @@ const formatGroupTitle = (prefix: string) => {
   return `${prefix.charAt(0).toUpperCase() + prefix.slice(1)} Options`;
 };
 
-const NumberMapFilters: React.FC<NumberMapFiltersProps> = ({
+const StringMapFilters: React.FC<StringMapFiltersProps> = ({
   optionMap,
   selectedOptions,
   onOptionChange,
@@ -49,4 +49,4 @@ const NumberMapFilters: React.FC<NumberMapFiltersProps> = ({
   );
 };
 
-export default NumberMapFilters;
+export default StringMapFilters;

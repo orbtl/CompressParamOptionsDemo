@@ -5,7 +5,7 @@ import {
   FormControlLabel,
 } from '@mui/material';
 import { type SelectedOptions } from 'compress-param-options';
-import FilterCheckbox from './FilterCheckbox';
+import FilterCheckbox from './filterCheckbox';
 
 interface FilterCategoryProps {
   title: string;

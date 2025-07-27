@@ -7,28 +7,19 @@ import {
 } from '@mui/material';
 
 import { ArrayMapFilters } from '../../filters';
-import CompressionResults from '../../compressonResults/CompressionResults';
-import FilteredDataGrid from '../../datagrid/FilteredDataGrid';
+import CompressionResults from '../../compressonResults/compressionResults';
+import FilteredDataGrid from '../../datagrid/filteredDataGrid';
 import { useUrlSelectedOptions } from '../../../hooks/useUrlSelectedOptions';
-import { columns, fakeData, arrayOptionMap } from './ArrayOptionsConstants';
-import ParamName from '../../../global/ParamName';
+import { columns, fakeData, arrayOptionMap } from './arrayOptionsConstants';
+import ParamName from '../../../global/paramName';
+import { filterData } from '../../filters/logic/filterData';
 
 const ArrayOptionsDemo: React.FC = () => {
   const { selectedOptions, handleOptionChange, compressedString } = useUrlSelectedOptions(arrayOptionMap, ParamName);
 
   const filteredData = useMemo(() => {
     if (selectedOptions.size === 0) return fakeData;
-    return fakeData.filter(row => {
-      const allRowOptions = [
-        ...row.features,
-        ...row.platforms,
-        row.tier,
-        ...row.integrations,
-        ...row.compliance
-      ];
-
-      return allRowOptions.some(option => selectedOptions.has(option));
-    });
+    return filterData(fakeData, selectedOptions);
   }, [selectedOptions]);
 
   return (

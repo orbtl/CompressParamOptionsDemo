@@ -1,10 +1,10 @@
 import React from 'react';
-import { type StringOptionMap, type SelectedOptions } from 'compress-param-options';
-import FilterCategory from './FilterCategory';
-import FilterSection from './FilterSection';
+import { type ArrayOptionMap, type SelectedOptions } from 'compress-param-options';
+import FilterCategory from '../components/filterCategory';
+import FilterSection from '../components/filterSection';
 
-interface StringMapFiltersProps {
-  optionMap: StringOptionMap;
+interface ArrayMapFiltersProps {
+  optionMap: ArrayOptionMap;
   selectedOptions: SelectedOptions;
   onOptionChange: (option: string, checked: boolean) => void;
 }
@@ -13,7 +13,7 @@ const formatGroupTitle = (prefix: string) => {
   return `${prefix.charAt(0).toUpperCase() + prefix.slice(1)} Options`;
 };
 
-const StringMapFilters: React.FC<StringMapFiltersProps> = ({
+const ArrayMapFilters: React.FC<ArrayMapFiltersProps> = ({
   optionMap,
   selectedOptions,
   onOptionChange,
@@ -22,13 +22,17 @@ const StringMapFilters: React.FC<StringMapFiltersProps> = ({
   const groupedOptions = React.useMemo(() => {
     const groups: Record<string, Array<{ key: string; value: string; label: string }>> = {};
 
-    Object.entries(optionMap).forEach(([key, value]) => {
+    optionMap.forEach((value, index) => {
       const split = value.split('-');
       const prefix = split[0];
       if (!groups[prefix]) {
         groups[prefix] = [];
       }
-      groups[prefix].push({ key, value, label: split[1] });
+      groups[prefix].push({
+        key: index.toString(),
+        value,
+        label: split[1],
+      });
     });
 
     return groups;
@@ -49,4 +53,4 @@ const StringMapFilters: React.FC<StringMapFiltersProps> = ({
   );
 };
 
-export default StringMapFilters;
+export default ArrayMapFilters;

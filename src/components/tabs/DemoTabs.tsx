@@ -8,10 +8,10 @@ import {
   Button,
 } from '@mui/material';
 
-import StringOptionsDemo from './string/StringOptionsDemo';
-import NumberOptionsDemo from './number/NumberOptionsDemo';
-import ArrayOptionsDemo from './array/ArrayOptionsDemo';
-import ParamName from '../../global/ParamName';
+import StringOptionsDemo from './string/stringOptionsDemo';
+import NumberOptionsDemo from './number/numberOptionsDemo';
+import ArrayOptionsDemo from './array/arrayOptionsDemo';
+import ParamName from '../../global/paramName';
 
 const tabRoutes = [
   { path: '/', label: 'String Keys', component: StringOptionsDemo },

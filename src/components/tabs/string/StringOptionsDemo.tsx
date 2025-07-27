@@ -5,25 +5,19 @@ import {
 } from '@mui/material';
 
 import { StringMapFilters } from '../../filters';
-import CompressionResults from '../../compressonResults/CompressionResults';
-import FilteredDataGrid from '../../datagrid/FilteredDataGrid';
+import CompressionResults from '../../compressonResults/compressionResults';
+import FilteredDataGrid from '../../datagrid/filteredDataGrid';
 import { useUrlSelectedOptions } from '../../../hooks/useUrlSelectedOptions';
-import { fakeData, stringOptionMap, columns } from './StringOptionsConstants';
-import ParamName from '../../../global/ParamName';
+import { fakeData, stringOptionMap, columns } from './stringOptionsConstants';
+import ParamName from '../../../global/paramName';
+import { filterData } from '../../filters/logic/filterData';
 
 const StringOptionsDemo: React.FC = () => {
   const { selectedOptions, handleOptionChange, compressedString } = useUrlSelectedOptions(stringOptionMap, ParamName);
 
   const filteredData = useMemo(() => {
     if (selectedOptions.size === 0) return fakeData;
-
-    return fakeData.filter(row => {
-      return selectedOptions.has(row.size) ||
-        selectedOptions.has(row.temperature) ||
-        selectedOptions.has(row.color) ||
-        selectedOptions.has(row.speed) ||
-        selectedOptions.has(row.mode);
-    });
+    return filterData(fakeData, selectedOptions);
   }, [selectedOptions]);
 
   return (

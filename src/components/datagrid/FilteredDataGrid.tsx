@@ -6,7 +6,7 @@ import {
   CardContent
 } from '@mui/material';
 import { DataGrid, type GridColDef } from '@mui/x-data-grid';
-import type { UniversalDataRow } from './UniversalDataRow';
+import type { UniversalDataRow } from './universalDataRow';
 
 interface FilteredDataGridProps {
   data: readonly UniversalDataRow[];

@@ -1,0 +1,1 @@
+export type FilterableData = Record<string, string | number | string[]>;
