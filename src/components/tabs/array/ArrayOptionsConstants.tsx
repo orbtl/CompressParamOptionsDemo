@@ -1,12 +1,14 @@
+import React from 'react';
 import {
   Chip,
   Box
 } from '@mui/material';
-import { type GridColDef } from '@mui/x-data-grid';
+import { type GridColDef, type GridRenderCellParams, type GridTreeNodeWithRender } from '@mui/x-data-grid';
 import {
   type ArrayOptionMap,
 } from 'compress-param-options';
 import type { FilterableData } from '../../filters/logic/filterable';
+import MultiChipCell from './multiChipCell';
 
 export const arrayOptionMap: ArrayOptionMap = [
   'feature-authentication',
@@ -53,10 +55,10 @@ const generateFakeData = (): ArrayExampleDataRow[] => {
   const allCompliance = arrayOptionMap.filter(opt => opt.startsWith('compliance-')).map(opt => opt.substring(11));
 
   return Array.from({ length: 40 }, (_, index) => {
-    const numFeatures = Math.floor(Math.random() * 4) + 1;
-    const numPlatforms = Math.floor(Math.random() * 3) + 1;
-    const numIntegrations = Math.floor(Math.random() * 3);
-    const numCompliance = Math.floor(Math.random() * 2);
+    const numFeatures = Math.floor(Math.random() * 8) + 1;
+    const numPlatforms = Math.floor(Math.random() * 4) + 1;
+    const numIntegrations = Math.floor(Math.random() * 4 + 1);
+    const numCompliance = Math.floor(Math.random() * 3 + 1);
 
     return {
       id: index + 1,
@@ -80,12 +82,11 @@ export const columns: GridColDef[] = [
     headerName: 'Features',
     width: 200,
     renderCell: (params) => (
-      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-        {(params.value as string[]).slice(0, 2).map((feature: string) => (
-          <Chip key={feature} label={feature.replace('feature-', '')} size="small" />
-        ))}
-        {(params.value as string[]).length > 2 && <Chip label={`+${(params.value as string[]).length - 2}`} size="small" />}
-      </Box>
+      <MultiChipCell
+        dataGridParams={params}
+        maxCount={3}
+        replaceString='feature-'
+      />
     )
   },
   {
@@ -93,11 +94,38 @@ export const columns: GridColDef[] = [
     headerName: 'Platforms',
     width: 150,
     renderCell: (params) => (
-      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-        {(params.value as string[]).map((platform: string) => (
-          <Chip key={platform} label={platform.replace('platform-', '')} size="small" color="secondary" />
-        ))}
-      </Box>
+      <MultiChipCell
+        color='secondary'
+        dataGridParams={params}
+        maxCount={3}
+        replaceString='platform-'
+      />
+    )
+  },
+  {
+    field: 'integration',
+    headerName: 'Integrations',
+    width: 150,
+    renderCell: (params) => (
+      <MultiChipCell
+        color='success'
+        dataGridParams={params}
+        maxCount={3}
+        replaceString='integration-'
+      />
+    )
+  },
+  {
+    field: 'compliance',
+    headerName: 'Compliances',
+    width: 150,
+    renderCell: (params) => (
+      <MultiChipCell
+        color='warning'
+        dataGridParams={params}
+        maxCount={3}
+        replaceString='compliance-'
+      />
     )
   },
   { field: 'tier', headerName: 'Tier', width: 120 },

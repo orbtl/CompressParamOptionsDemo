@@ -16,7 +16,8 @@ export const stringOptionMap: StringOptionMap = {
   'fast': 'speed-fast',
   'slow': 'speed-slow',
   'auto': 'mode-automatic',
-  'manual': 'mode-manual'
+  'manual': 'mode-manual',
+  'hybrid': 'mode-hybrid',
 };
 
 export interface StringExampleDataRow extends FilterableData {
@@ -37,7 +38,7 @@ const generateFakeData = (): StringExampleDataRow[] => {
   const temperatures = ['cold', 'warm', 'hot'];
   const colors = ['red', 'blue', 'green', 'yellow'];
   const speeds = ['fast', 'slow'];
-  const modes = ['automatic', 'manual'];
+  const modes = ['automatic', 'manual', 'hybrid'];
 
   return Array.from({ length: 50 }, (_, index) => ({
     id: index + 1,

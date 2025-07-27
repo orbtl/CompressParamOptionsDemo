@@ -21,7 +21,6 @@ export function filterData(
   for (let data of allData) {
     let dataPassesFilters = true;
     for (let filterKey of Object.keys(enabledFilters)) {
-      console.log('filterKey', filterKey, 'data', data);
       let value = data[filterKey];
       if (!passesFilter(value, enabledFilters[filterKey])) {
         // If even a single filter doesn't match, this data shouldn't be included
@@ -60,7 +59,6 @@ function passesFilter(
   value: string | number | string[],
   enabledFilterValues: Set<string>
 ): boolean {
-  console.log('value', value, 'enabledFilterValues', enabledFilterValues);
   if (Array.isArray(value)) {
     return value.some(x => enabledFilterValues.has(x));
   } else if (typeof value === 'string') {
