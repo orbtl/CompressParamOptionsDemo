@@ -1,14 +1,15 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, Suspense, lazy } from 'react';
 import { Routes, Route, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import Container from '@mui/material/Container';
 
-import StringOptionsDemo from './string/stringOptionsDemo';
-import NumberOptionsDemo from './number/numberOptionsDemo';
-import ArrayOptionsDemo from './array/arrayOptionsDemo';
+const StringOptionsDemo = lazy(() => import('./string/stringOptionsDemo'));
+const NumberOptionsDemo = lazy(() => import('./number/numberOptionsDemo'));
+const ArrayOptionsDemo = lazy(() => import('./array/arrayOptionsDemo'));
 import ParamName from '../../global/paramName';
 
 const tabRoutes = [
@@ -84,11 +85,15 @@ const DemoTabs: React.FC = () => {
       </Box>
 
       <Box sx={{ p: 3 }}>
-        <Routes>
-          <Route path="/" element={<StringOptionsDemo />} />
-          <Route path="/number" element={<NumberOptionsDemo />} />
-          <Route path="/array" element={<ArrayOptionsDemo />} />
-        </Routes>
+        <Container maxWidth='xl'>
+          <Suspense fallback={<Typography sx={{ width: '1488px' }}>Loading...</Typography>}>
+            <Routes>
+              <Route path="/" element={<StringOptionsDemo />} />
+              <Route path="/number" element={<NumberOptionsDemo />} />
+              <Route path="/array" element={<ArrayOptionsDemo />} />
+            </Routes>
+          </Suspense>
+        </Container>
       </Box>
     </>
   );

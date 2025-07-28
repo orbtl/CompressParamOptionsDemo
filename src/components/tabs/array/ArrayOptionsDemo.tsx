@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
@@ -35,7 +34,7 @@ const ArrayOptionsDemo: React.FC = () => {
   }, [selectedOptions]);
 
   return (
-    <Container maxWidth="xl">
+    <>
       <Typography variant="h5" gutterBottom>
         Array Options Demo
       </Typography>
@@ -70,7 +69,7 @@ const ArrayOptionsDemo: React.FC = () => {
         columns={columns}
         title="Filtered Data"
       />
-    </Container>
+    </>
   );
 };
 
