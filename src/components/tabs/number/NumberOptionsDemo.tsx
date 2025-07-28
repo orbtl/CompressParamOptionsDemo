@@ -1,9 +1,7 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import {
-  Container,
-  Typography,
-} from '@mui/material';
-import { debounce } from 'lodash';
+import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
+import debounce from 'lodash-es/debounce';
 
 import { NumberMapFilters } from '../../filters';
 import CompressionResults from '../../compressonResults/compressionResults';

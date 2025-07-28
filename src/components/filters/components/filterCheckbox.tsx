@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { Checkbox } from '@mui/material';
+import Checkbox from '@mui/material/Checkbox';
 
 interface FilterCheckboxProps {
   value: string;

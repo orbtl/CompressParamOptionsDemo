@@ -1,8 +1,6 @@
 import React from 'react';
-import {
-  Chip,
-  Box
-} from '@mui/material';
+import Chip from '@mui/material/Chip';
+import Box from '@mui/material/Box';
 import { type GridRenderCellParams, type GridTreeNodeWithRender } from '@mui/x-data-grid';
 
 interface MultiChipCellProps {

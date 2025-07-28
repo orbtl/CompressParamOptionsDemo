@@ -1,11 +1,9 @@
 import React from 'react';
-import {
-  Grid,
-  Card,
-  CardContent,
-  FormGroup,
-  Typography,
-} from '@mui/material';
+import Grid from '@mui/material/Grid';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import FormGroup from '@mui/material/FormGroup';
+import Typography from '@mui/material/Typography';
 
 interface FilterSectionProps {
   children?: React.ReactNode;

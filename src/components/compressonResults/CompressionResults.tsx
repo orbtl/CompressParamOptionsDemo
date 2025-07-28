@@ -1,13 +1,11 @@
 import React from 'react';
-import {
-  Typography,
-  Box,
-  Alert,
-  Chip,
-  Card,
-  CardContent,
-  Paper
-} from '@mui/material';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import Alert from '@mui/material/Alert';
+import Chip from '@mui/material/Chip';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Paper from '@mui/material/Paper';
 import { type SelectedOptions } from 'compress-param-options';
 
 interface CompressionResultsProps {

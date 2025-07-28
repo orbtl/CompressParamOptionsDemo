@@ -1,11 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import {
-  Container,
-  Typography,
-  Alert,
-  Box
-} from '@mui/material';
-import { debounce } from 'lodash';
+import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
+import Alert from '@mui/material/Alert';
+import Box from '@mui/material/Box';
+import debounce from 'lodash-es/debounce';
 
 import { ArrayMapFilters } from '../../filters';
 import CompressionResults from '../../compressonResults/compressionResults';

@@ -1,10 +1,8 @@
 import React from 'react';
-import {
-  Typography,
-  Box,
-  Card,
-  CardContent
-} from '@mui/material';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
 import { DataGrid, type GridColDef } from '@mui/x-data-grid';
 import type { FilterableData } from '../filters/logic/filterable';
 

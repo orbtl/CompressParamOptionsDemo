@@ -1,14 +1,11 @@
 import { BrowserRouter as Router } from 'react-router-dom';
-import {
-  Container,
-  Paper,
-  Box,
-  Typography,
-  ThemeProvider,
-  createTheme,
-  AppBar,
-  Toolbar
-} from '@mui/material';
+import Container from '@mui/material/Container';
+import Paper from '@mui/material/Paper';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
 
 import DemoTabs from './components/tabs/demoTabs';
 

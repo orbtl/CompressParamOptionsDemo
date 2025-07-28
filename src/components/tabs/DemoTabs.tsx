@@ -1,12 +1,10 @@
 import React, { useCallback } from 'react';
 import { Routes, Route, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
-import {
-  Tabs,
-  Tab,
-  Box,
-  Typography,
-  Button,
-} from '@mui/material';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 
 import StringOptionsDemo from './string/stringOptionsDemo';
 import NumberOptionsDemo from './number/numberOptionsDemo';
