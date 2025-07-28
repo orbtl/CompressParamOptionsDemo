@@ -1,5 +1,4 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import debounce from 'lodash-es/debounce';
 
@@ -33,7 +32,7 @@ const NumberOptionsDemo: React.FC = () => {
   }, [selectedOptions]);
 
   return (
-    <Container maxWidth="xl">
+    <>
       <Typography variant="h5" gutterBottom>
         Number Keys Demo
       </Typography>
@@ -59,7 +58,7 @@ const NumberOptionsDemo: React.FC = () => {
         title="Filtered Data"
       />
 
-    </Container>
+    </>
   );
 };
 

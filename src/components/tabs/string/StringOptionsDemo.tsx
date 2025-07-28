@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import debounce from 'lodash-es/debounce';
 
@@ -33,7 +32,7 @@ const StringOptionsDemo: React.FC = () => {
   }, [selectedOptions]);
 
   return (
-    <Container maxWidth="xl">
+    <>
       <Typography variant="h5" gutterBottom>
         String Keys Demo
       </Typography>
@@ -58,7 +57,7 @@ const StringOptionsDemo: React.FC = () => {
         columns={columns}
         title="Filtered Data"
       />
-    </Container>
+    </>
   );
 };
 
