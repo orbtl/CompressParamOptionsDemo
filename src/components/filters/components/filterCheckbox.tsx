@@ -9,9 +9,10 @@ interface FilterCheckboxProps {
 
 const FilterCheckbox: React.FC<FilterCheckboxProps> = ({
   value,
-  checked,
   onOptionChange,
+  checked,
 }) => {
+
   const onChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     onOptionChange(value, e.target.checked);
   }, [value, onOptionChange]);

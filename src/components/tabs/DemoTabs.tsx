@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Routes, Route, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import {
   Tabs,
@@ -12,6 +12,8 @@ import StringOptionsDemo from './string/stringOptionsDemo';
 import NumberOptionsDemo from './number/numberOptionsDemo';
 import ArrayOptionsDemo from './array/arrayOptionsDemo';
 import ParamName from '../../global/paramName';
+import { useUrlSelectedOptions } from '../../hooks/useUrlSelectedOptions';
+import { debounce } from 'lodash';
 
 const tabRoutes = [
   { path: '/', label: 'String Keys', component: StringOptionsDemo },
@@ -28,13 +30,21 @@ const DemoTabs: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const setSearchParams = useSearchParams()[1];
+  // Force re-render of demo tab as the easiest way to clear selected options state
+  const [demoKey, setDemoKey] = useState(false);
+
+  const cycleKeyWithDebounce = useCallback(
+    debounce(() => setDemoKey((prev: boolean) => !prev), 10),
+    []
+  );
 
   const clearOptions = useCallback(() => {
     setSearchParams((prevParams) => {
       prevParams.delete(ParamName);
       return prevParams;
     });
-  }, [setSearchParams]);
+    cycleKeyWithDebounce();
+  }, [setSearchParams, cycleKeyWithDebounce]);
 
   // Determine current tab based on pathname
   const currentTab = location.pathname in tabLookup
@@ -87,9 +97,9 @@ const DemoTabs: React.FC = () => {
 
       <Box sx={{ p: 3 }}>
         <Routes>
-          <Route path="/" element={<StringOptionsDemo />} />
-          <Route path="/number" element={<NumberOptionsDemo />} />
-          <Route path="/array" element={<ArrayOptionsDemo />} />
+          <Route path="/" element={<StringOptionsDemo key={demoKey} />} />
+          <Route path="/number" element={<NumberOptionsDemo key={demoKey} />} />
+          <Route path="/array" element={<ArrayOptionsDemo key={demoKey} />} />
         </Routes>
       </Box>
     </>

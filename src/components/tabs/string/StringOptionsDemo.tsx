@@ -32,7 +32,7 @@ const StringOptionsDemo: React.FC = () => {
 
   useEffect(() => {
     filterDataWithDebounce(selectedOptions);
-  }, [selectedOptions]);
+  }, [selectedOptions, filterDataWithDebounce]);
 
   return (
     <Container maxWidth="xl">

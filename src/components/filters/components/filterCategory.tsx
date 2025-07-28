@@ -25,19 +25,22 @@ const FilterCategory: React.FC<FilterCategoryProps> = ({
       <Typography variant="subtitle2" sx={{ mt: 2, mb: 1 }}>
         {title}
       </Typography>
-      {options.map(({ key, value, label }) => (
-        <FormControlLabel
-          key={key}
-          control={
-            <FilterCheckbox
-              checked={selectedOptions.has(value)}
-              onOptionChange={onOptionChange}
-              value={value}
-            />
-          }
-          label={label}
-        />
-      ))}
+      {options.map(({ key, value, label }) => {
+        const checked = selectedOptions.has(value);
+        return (
+          <FormControlLabel
+            key={key}
+            control={
+              <FilterCheckbox
+                checked={checked}
+                onOptionChange={onOptionChange}
+                value={value}
+              />
+            }
+            label={label}
+          />
+        )
+      })}
     </Grid>
   );
 };

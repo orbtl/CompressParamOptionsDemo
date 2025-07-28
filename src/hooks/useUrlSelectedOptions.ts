@@ -1,4 +1,4 @@
-import { useMemo, useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import {
   compressOptions,
@@ -10,6 +10,7 @@ import {
 interface UseUrlSelectedOptionsResult {
   selectedOptions: SelectedOptions;
   handleOptionChange: (option: string, checked: boolean) => void;
+  handleClear: () => void;
   compressedString: string;
 }
 
@@ -18,11 +19,10 @@ export const useUrlSelectedOptions = (
   paramName: string = 'filters'
 ): UseUrlSelectedOptionsResult => {
   const [searchParams, setSearchParams] = useSearchParams();
-
   const compressedParam = searchParams.get(paramName) || '';
 
-  // Decompress the URL parameter to get selected options
-  const selectedOptions = useMemo(() => {
+  // Decompress the URL parameter to get initial selected options
+  const [selectedOptions, setSelectedOptions] = useState(() => {
     if (!compressedParam) return new Set<string>();
 
     try {
@@ -31,38 +31,53 @@ export const useUrlSelectedOptions = (
       // If decompression fails, return empty set
       return new Set<string>();
     }
-  }, [optionMap, compressedParam]);
+  });
 
   const handleOptionChange = useCallback((option: string, checked: boolean) => {
-    const newSelected = new Set(selectedOptions);
-    if (checked) {
-      newSelected.add(option);
-    } else {
-      newSelected.delete(option);
-    }
+    // Update local state first for responsive feedback
+    let newOptions: Set<string>;
+    setSelectedOptions((prevSelectedOptions) => {
+      if (checked) {
+        prevSelectedOptions.add(option);
+      } else {
+        prevSelectedOptions.delete(option);
+      }
+      newOptions = new Set(prevSelectedOptions);
+
+      // debounce handling the url update possibly if perf concerns?
+      return newOptions;
+    });
 
     // Update URL parameters
     setSearchParams((prevParams) => {
-      if (newSelected.size === 0) {
-        // Remove the parameter if no options are selected
-        prevParams.delete(paramName);
-      } else {
-        // Compress the new selection and update the URL
-        try {
-          const compressed = compressOptions(optionMap, newSelected);
-          prevParams.set(paramName, compressed);
-        } catch {
-          // If compression fails, remove the parameter
+      try {
+
+        if (newOptions.size === 0) {
           prevParams.delete(paramName);
+        } else {
+          const compressed = compressOptions(optionMap, newOptions);
+          prevParams.set(paramName, compressed);
         }
+      } catch {
+        // If compression fails, remove the parameter
+        prevParams.delete(paramName);
       }
       return prevParams;
     }, { replace: true });
-  }, [selectedOptions, setSearchParams, paramName, optionMap]);
+  }, [setSearchParams, paramName, optionMap]);
+
+  const handleClear = useCallback(() => {
+    setSelectedOptions(new Set<string>());
+    setSearchParams((prevParams) => {
+      prevParams.delete(paramName);
+      return prevParams;
+    });
+  }, [setSearchParams]);
 
   return {
     selectedOptions,
     handleOptionChange,
+    handleClear,
     compressedString: compressedParam
   };
 };
