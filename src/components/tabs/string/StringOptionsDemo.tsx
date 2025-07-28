@@ -1,8 +1,9 @@
-import React, { useMemo } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   Container,
   Typography,
 } from '@mui/material';
+import { debounce } from 'lodash';
 
 import { StringMapFilters } from '../../filters';
 import CompressionResults from '../../compressonResults/compressionResults';
@@ -11,13 +12,26 @@ import { useUrlSelectedOptions } from '../../../hooks/useUrlSelectedOptions';
 import { fakeData, stringOptionMap, columns } from './stringOptionsConstants';
 import ParamName from '../../../global/paramName';
 import { filterData } from '../../filters/logic/filterData';
+import type { FilterableData } from '../../filters/logic/filterable';
+import type { SelectedOptions } from 'compress-param-options';
 
 const StringOptionsDemo: React.FC = () => {
   const { selectedOptions, handleOptionChange, compressedString } = useUrlSelectedOptions(stringOptionMap, ParamName);
+  const [filteredData, setFilteredData] = useState<FilterableData[]>(fakeData);
 
-  const filteredData = useMemo(() => {
-    if (selectedOptions.size === 0) return fakeData;
-    return filterData(fakeData, selectedOptions);
+  const filterDataWithDebounce = useCallback(
+    debounce((localOptions: SelectedOptions) => {
+      if (localOptions.size !== 0) {
+        setFilteredData(filterData(fakeData, localOptions));
+      } else {
+        setFilteredData(fakeData);
+      }
+    },
+      150),
+    []);
+
+  useEffect(() => {
+    filterDataWithDebounce(selectedOptions);
   }, [selectedOptions]);
 
   return (

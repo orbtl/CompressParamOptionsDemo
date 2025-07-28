@@ -6,10 +6,10 @@ import {
   CardContent
 } from '@mui/material';
 import { DataGrid, type GridColDef } from '@mui/x-data-grid';
-import type { UniversalDataRow } from './universalDataRow';
+import type { FilterableData } from '../filters/logic/filterable';
 
 interface FilteredDataGridProps {
-  data: readonly UniversalDataRow[];
+  data: readonly FilterableData[];
   columns: GridColDef[];
   title?: string;
 }
